@@ -15,11 +15,22 @@
 	</div>
 
 	<div id="container">
+
 		<div class="row">
-			<div class="title">
+			<div class="section-title" id="first-section-title">
 				<h1>Aubrey McCarthy</h1>
 			</div>
-			<div class="section-content spacer"></div>
+			<div class="section-content" id="special-testing-row">
+				<div id="special-pic">
+					<img  src="Images/me.jpg" width="100%" height="auto">
+				</div>
+				<div id="special-bio">
+					<p>Hey there weary traveller</p>
+					<p>I write shaders, do art sometimes</p>
+					<p>Check out some of the games I've worked on below</p>
+					<p>Website still work in progress</p>
+				</div>
+			</div>
 		</div>
 		<!-- <div class="row"> -->
 		<!-- <div class="title"><h2 id='games'>Games</h2></div> -->
@@ -53,10 +64,15 @@
 					<p>One of the main stars of the show in <strong>OlliOlli World is the beautiful pastel colour
 							pallet</strong>. The game has many many levels, and we wanted each level to be a
 						continuation of the evolving colour story that&#39;s building through each of biome.</p>
-					<div class='slideOver-Background' id='imageSlide-CB-Tree'>
+					<!-- <div class='slideOver-Background' id='imageSlide-CB-Tree'>
 						<div class='slideOver-Foreground' id='imageSlide-CB-Forest'>
 							<textarea readonly cols='0' rows='0' class='slider'></textarea>
 						</div>
+					</div> -->
+					<div class="image-comparison-container">
+						<img src="Images/CloverBrook_Forest.jpg" alt="Image 1">
+						<input type="range" min="0" max="100" value="50" class="slider" oninput="updateImage(this, this.nextElementSibling)">
+						<img src="Images/CloverBrook_Tree.jpg" alt="Image 2" class="foregroundImage">
 					</div>
 
 					<p>I created a <strong><em>Meta Gradient Texture</em> system and workflow for the artists to
@@ -66,12 +82,18 @@
 						as a whole, any time and completely non-destructively. As well as meaning an artist creating a
 						level could easily take art from different levels and reuse them. The colours of this asset
 						already matching the rest of the current environment, as soon as you drop it in the level.</p>
+					
+						<div class="image-comparison-container">
+							<img src="Images/SunshineValley_Atlantic.jpg" alt="Image 1">
+							<input type="range" min="0" max="100" value="50" class="slider" oninput="updateImage(this, this.nextElementSibling)">
+							<img src="Images/SunshineValley_Sea.jpg" alt="Image 2" class="foregroundImage">
+						</div>
 
-					<div class='slideOver-Background' id='imageSlide-SV-Atlantic'>
+					<!-- <div class='slideOver-Background' id='imageSlide-SV-Atlantic'>
 						<div class='slideOver-Foreground' id='imageSlide-SV-Sea'>
 							<textarea readonly cols='0' rows='0' class='slider'></textarea>
 						</div>
-					</div>
+					</div> -->
 					<p>I also supported the 3D artists with their art creation process, this style of rendering needing
 						the art to be made in a non-standard way. Including quality of life improvements in their art
 						programs, going from 3D software to engine, and in engine tools.</p>
@@ -206,5 +228,4 @@
 	</div>
 
 	<script src="script.js"></script>
-
 </body>

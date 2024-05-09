@@ -261,7 +261,9 @@ a {
 .title {
 	/* background-color: rgb(127, 255, 146); */
 	/* width: 33%; */
-	max-width: 20rem;
+	/* max-width: 20rem; */
+	flex: 1;
+	background-color: red;
 }
 
 .section-title {
@@ -391,79 +393,75 @@ a {
 	transition: max-height 0.5s ease-out;
 }
 
-.img-comp-container {
-	position: relative;
-	height: 200px;
-	/*should be the same height as the images*/
+.image-comparison-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px; /* adjust as needed */
+    /* margin: 0 auto; */
+    height: 100%;
+	display: block;
 }
 
-#imageSlide-CB-Tree {
-	background-image: url(Images/CloverBrook_Tree.jpg);
-
+.image-comparison-container img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
-#imageSlide-CB-Forest {
-	background-image: url(Images/CloverBrook_Forest.jpg);
-}
-
-#imageSlide-SV-Atlantic {
-
-	background-image: url(Images/SunshineValley_Atlantic.jpg);
-}
-
-#imageSlide-SV-Sea {
-	background-image: url(Images/SunshineValley_Sea.jpg);
-}
-
-.slideOver-Background {
-	width: 600px;
-	height: 338px;
-	border-radius: 3px;
-	margin: 1rem auto;
-	position: relative;
-	overflow: hidden;
-}
-
-.slideOver-Foreground {
-	height: 338px;
-	resize: horizontal;
+.foregroundImage {
+	clip: rect(0px, 400px, 100000px, 0px);
 	position: absolute;
 	top: 0;
-	left: 0;
-	min-width: 0;
-	max-width: 800px;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
 }
 
-.slideOver-Foreground:before {
-	content: '⬌';
-	background: rgba(0, 0, 0, .5);
-	font-size: 2rem;
-	color: white;
-	top: 0;
-	right: 0;
-	height: 100%;
-	line-height: 342px;
-	position: absolute;
+.image-comparison-container input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  /* Hide default slider */
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
 }
 
-.slider {
-	resize: horizontal;
-	opacity: 0;
-	position: relative;
-	top: 50%;
-	left: 0px;
-	margin-right: 0px;
-	width: 300px;
-	height: 15px;
-	max-width: 600px;
-	min-width: 22px;
-	outline: 0 solid transparent;
-	cursor: move;
-	cursor: ew-resize;
-	transform: scaley(35);
-	transform-origin: center center;
+.image-comparison-container input[type=range] {
+    -webkit-appearance: none; /* Hides default slider */
+    appearance: none;
+    background: transparent; /* Otherwise white in Chrome */
+    position: absolute;
+    width: calc(100% + 40px);
+    left: -20px;
+    height: 100%;
+	top: 0px;
+	cursor: pointer;
+    cursor: ew-resize;
+    z-index: 1000; /* make sure it's above the images */
+}
+
+.image-comparison-container input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;/* Hides default slider */
+    appearance: none;
+    width: 40px;
+    height: 80px;
+    border-radius: 5px;
+    background: #cdcdcd;
+    border: 1px solid #cbcbcb;
+    box-shadow: inset 0px 0px 20px -10px rgb(145, 145, 145), inset 0px 5px 15px -5px rgb(255, 255, 255);
+    cursor: pointer;
+    cursor: ew-resize;
+    z-index: 1001; /* make sure it's above the images */
+} 
+
+#special-testing-row {
+	display: flex;
+	gap: 1em;
+	padding-bottom: 10px;
+	align-items: center;
+}
+#special-bio {
+	font-size: 1.25rem;
+}
+#special-pic img {
+	border-radius: 5px;
 }
 
 @media only screen and (min-width: 768px) {

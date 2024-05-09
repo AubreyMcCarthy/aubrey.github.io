@@ -8,57 +8,59 @@ let acceleration = 0.001;
 let scrollMultiplier = -5;
 
 var darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-let backgroundColorLight = new Float32Array([21/255, 96/255, 100/255, 1]);
-let foregroundColorLight = new Float32Array([251/255, 250/255, 248/255, 1]);
+let backgroundColorLight = new Float32Array([21 / 255, 96 / 255, 100 / 255, 1]);
+let foregroundColorLight = new Float32Array([251 / 255, 250 / 255, 248 / 255, 1]);
 
-let backgroundColorDark = new Float32Array([27/255, 29/255, 31/255, 1]);
-let foregroundColorDark = new Float32Array([7/255, 9/255, 11/255, 1]);
+let backgroundColorDark = new Float32Array([27 / 255, 29 / 255, 31 / 255, 1]);
+let foregroundColorDark = new Float32Array([7 / 255, 9 / 255, 11 / 255, 1]);
 
 
 const smallDeviceWidth = 768;
 
-window.onload = function() {
-    var canvas = document.getElementById('glCanvas');
-    var gl = canvas.getContext('webgl2');
+let body = document.querySelector('body');
 
-    if (!gl) {
-        console.error('Unable to initialize WebGL 2.0. Your browser may not support it.');
-        return;
-    }
+window.onload = function () {
+	var canvas = document.getElementById('glCanvas');
+	var gl = canvas.getContext('webgl2');
 
-    function setPause(value) {
-        isPaused = value;
-        if (!isPaused) {
-            requestAnimationFrame(render); // Resume rendering loop
-        }
-        previousRenderTime = performance.now();
-    }
-    
-    canvas.addEventListener('mouseover', function() {
-        setPause(false);
-    });
-    canvas.addEventListener('mouseout', function() {
-        setPause(true);
-    });
+	if (!gl) {
+		console.error('Unable to initialize WebGL 2.0. Your browser may not support it.');
+		return;
+	}
 
-    let sidebarBg = document.getElementById('sidebar-bg');
-    sidebarBg.addEventListener('mouseover', function() {
-        setPause(false);
-    });
-    sidebarBg.addEventListener('mouseout', function() {
-        setPause(true);
-    });
+	function setPause(value) {
+		isPaused = value;
+		if (!isPaused) {
+			requestAnimationFrame(render); // Resume rendering loop
+		}
+		previousRenderTime = performance.now();
+	}
 
-    // Vertex shader code
-    var vertexShaderSource = `#version 300 es
+	canvas.addEventListener('mouseover', function () {
+		setPause(false);
+	});
+	canvas.addEventListener('mouseout', function () {
+		setPause(true);
+	});
+
+	let sidebarBg = document.getElementById('sidebar-bg');
+	sidebarBg.addEventListener('mouseover', function () {
+		setPause(false);
+	});
+	sidebarBg.addEventListener('mouseout', function () {
+		setPause(true);
+	});
+
+	// Vertex shader code
+	var vertexShaderSource = `#version 300 es
         in vec2 a_position;
         void main() {
             gl_Position = vec4(a_position, 0.0, 1.0);
         }
     `;
 
-    // Fragment shader code
-    var fragmentShaderSource = `#version 300 es
+	// Fragment shader code
+	var fragmentShaderSource = `#version 300 es
         precision mediump float;
         uniform float u_time;
         uniform vec4 u_resolution;
@@ -122,158 +124,193 @@ window.onload = function() {
         }
     `;
 
-    // Create shaders
-    var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
-    var fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+	// Create shaders
+	var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+	var fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
 
-    // Create program
-    var program = createProgram(gl, vertexShader, fragmentShader);
+	// Create program
+	var program = createProgram(gl, vertexShader, fragmentShader);
 
-    // Set up attributes and uniforms
-    var positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
-    var resolutionUniformLocation = gl.getUniformLocation(program, 'u_resolution');
-    var timeUniformLocation = gl.getUniformLocation(program, 'u_time');
-    var backgroundColorUniformLocation = gl.getUniformLocation(program, 'u_backgroundColor');
-    var foregroundColorUniformLocation = gl.getUniformLocation(program, 'u_foregroundColor');
+	// Set up attributes and uniforms
+	var positionAttributeLocation = gl.getAttribLocation(program, 'a_position');
+	var resolutionUniformLocation = gl.getUniformLocation(program, 'u_resolution');
+	var timeUniformLocation = gl.getUniformLocation(program, 'u_time');
+	var backgroundColorUniformLocation = gl.getUniformLocation(program, 'u_backgroundColor');
+	var foregroundColorUniformLocation = gl.getUniformLocation(program, 'u_foregroundColor');
 
-    var positionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    var positions = [
-        -1.0, -1.0,
-        1.0, -1.0,
-        -1.0, 1.0,
-        -1.0, 1.0,
-        1.0, -1.0,
-        1.0, 1.0,
-    ];
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+	var positionBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+	var positions = [
+		-1.0, -1.0,
+		1.0, -1.0,
+		-1.0, 1.0,
+		-1.0, 1.0,
+		1.0, -1.0,
+		1.0, 1.0,
+	];
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
-    var vao = gl.createVertexArray();
-    gl.bindVertexArray(vao);
-    gl.enableVertexAttribArray(positionAttributeLocation);
-    gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
+	var vao = gl.createVertexArray();
+	gl.bindVertexArray(vao);
+	gl.enableVertexAttribArray(positionAttributeLocation);
+	gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
 
-    function createShader(gl, type, source) {
-        var shader = gl.createShader(type);
-        gl.shaderSource(shader, source);
-        gl.compileShader(shader);
+	function createShader(gl, type, source) {
+		var shader = gl.createShader(type);
+		gl.shaderSource(shader, source);
+		gl.compileShader(shader);
 
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-            console.error('An error occurred compiling the shaders:', gl.getShaderInfoLog(shader));
-            gl.deleteShader(shader);
-            return null;
-        }
+		if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+			console.error('An error occurred compiling the shaders:', gl.getShaderInfoLog(shader));
+			gl.deleteShader(shader);
+			return null;
+		}
 
-        return shader;
-    }
+		return shader;
+	}
 
-    function createProgram(gl, vertexShader, fragmentShader) {
-        var program = gl.createProgram();
-        gl.attachShader(program, vertexShader);
-        gl.attachShader(program, fragmentShader);
-        gl.linkProgram(program);
+	function createProgram(gl, vertexShader, fragmentShader) {
+		var program = gl.createProgram();
+		gl.attachShader(program, vertexShader);
+		gl.attachShader(program, fragmentShader);
+		gl.linkProgram(program);
 
-        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-            console.error('Unable to initialize the shader program:', gl.getProgramInfoLog(program));
-            return null;
-        }
+		if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+			console.error('Unable to initialize the shader program:', gl.getProgramInfoLog(program));
+			return null;
+		}
 
-        return program;
-    }
+		return program;
+	}
 
-    var previousRenderTime = performance.now();
-    var elapsedTime = -Math.random() * 17000;
-    var speed = 0;
-    let titleDiv = document.getElementById('first-section-title');
-    var offset = 0;
-    function render(currentTime) {
-        if(window.innerWidth < smallDeviceWidth)
-        {
-            previousRenderTime = currentTime;
-            return;
-        }
+	var previousRenderTime = performance.now();
+	var elapsedTime = -Math.random() * 17000;
+	var speed = 0;
+	let titleDiv = document.getElementById('first-section-title');
+	var offset = 0;
+	function render(currentTime) {
+		if (window.innerWidth < smallDeviceWidth) {
+			previousRenderTime = currentTime;
+			return;
+		}
 
-        let rect = titleDiv.getBoundingClientRect();
-        // console.log('title div is ' + rect.right)
-        sidebarBg.setAttribute("style","width:"+rect.right+"px");
-        canvas.setAttribute("style", "left:"+rect.right+"px");
+		let rect = titleDiv.getBoundingClientRect();
+		// console.log('title div is ' + rect.right)
+		sidebarBg.setAttribute("style", "width:" + rect.right + "px");
+		canvas.setAttribute("style", "left:" + rect.right + "px");
 
-        gl.clearColor(0, 0, 0, 0);
-        gl.clear(gl.COLOR_BUFFER_BIT);
+		gl.clearColor(0, 0, 0, 0);
+		gl.clear(gl.COLOR_BUFFER_BIT);
 
-        gl.useProgram(program);
+		gl.useProgram(program);
 
-        var delta = 0;
-        if(!isPaused || speed > 0) {
-            delta = currentTime - previousRenderTime;
-            elapsedTime += delta * speed;
-        }
-        gl.uniform1f(timeUniformLocation, (elapsedTime + window.scrollY * scrollMultiplier) / 1000 * wiggleSpeed);
-        // gl.uniform2f(resolutionUniformLocation, canvas.width, canvas.height);
-        gl.uniform4f(resolutionUniformLocation, canvas.width, canvas.height, 1.0 / canvas.width, 1.0 / canvas.height);
+		var delta = 0;
+		if (!isPaused || speed > 0) {
+			delta = currentTime - previousRenderTime;
+			elapsedTime += delta * speed;
+		}
+		gl.uniform1f(timeUniformLocation, (elapsedTime + window.scrollY * scrollMultiplier) / 1000 * wiggleSpeed);
+		// gl.uniform2f(resolutionUniformLocation, canvas.width, canvas.height);
+		gl.uniform4f(resolutionUniformLocation, canvas.width, canvas.height, 1.0 / canvas.width, 1.0 / canvas.height);
 
-        gl.uniform4fv(foregroundColorUniformLocation, 
-            darkMode ? foregroundColorDark : foregroundColorLight);
-        gl.uniform4fv(backgroundColorUniformLocation, 
-                darkMode ? backgroundColorDark : backgroundColorLight);
+		gl.uniform4fv(foregroundColorUniformLocation,
+			darkMode ? foregroundColorDark : foregroundColorLight);
+		gl.uniform4fv(backgroundColorUniformLocation,
+			darkMode ? backgroundColorDark : backgroundColorLight);
 
-        gl.bindVertexArray(vao);
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
+		gl.bindVertexArray(vao);
+		gl.drawArrays(gl.TRIANGLES, 0, 6);
 
-        previousRenderTime = currentTime;
+		previousRenderTime = currentTime;
 
-        speed += delta * acceleration * (isPaused ? -1 : 1);
-        // speed = min(1, max(speed, 0));
-        if(speed > 1)
-            speed = 1;
-        if(speed < 0)
-            speed = 0;
-        
+		speed += delta * acceleration * (isPaused ? -1 : 1);
+		// speed = min(1, max(speed, 0));
+		if (speed > 1)
+			speed = 1;
+		if (speed < 0)
+			speed = 0;
 
-        if(!isPaused || speed > 0) {
-            requestAnimationFrame(render);
-        }
-    }
 
-    function requestRender() {
-        if(window.innerWidth < smallDeviceWidth)
-        {
-            return;
-        }
-        requestAnimationFrame(render);
-    }
+		if (!isPaused || speed > 0) {
+			requestAnimationFrame(render);
+		}
+	}
 
-    requestRender();
+	function requestRender() {
+		if (window.innerWidth < smallDeviceWidth) {
+			return;
+		}
+		requestAnimationFrame(render);
+	}
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-        darkMode = event.matches;
-        requestRender();
-    });
+	requestRender();
 
-    let body = document.querySelector('body');
-    body.onresize = (event) => {
-        requestRender();
-    };
+	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+		darkMode = event.matches;
+		requestRender();
+	});
 
-    // var previousScroll = window.screenY;
-    body.onscroll = (event) => {
-        requestRender();
-    };
+	body.onresize = (event) => {
+		requestRender();
+	};
+	// body.addEventListener("resize", (event) => {
+	// 	requestRender();
+	// });
+
+	// var previousScroll = window.screenY;
+	body.onscroll = (event) => {
+		requestRender();
+	};
 };
 
 var coll = document.getElementsByClassName("collapsible");
 var i;
 
 for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function () {
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
-        if (content.style.maxHeight) {
-            this.innerHTML = "More...";
-            content.style.maxHeight = null;
-        } else {
-            this.innerHTML = "Less...";
-            content.style.maxHeight = content.scrollHeight + "px";
-        }
-    });
+	coll[i].addEventListener("click", function () {
+		this.classList.toggle("active");
+		var content = this.nextElementSibling;
+		if (content.style.maxHeight) {
+			this.innerHTML = "More...";
+			content.style.maxHeight = null;
+		} else {
+			this.innerHTML = "Less...";
+			content.style.maxHeight = content.scrollHeight + "px";
+		}
+	});
 }
+
+function updateImage(slider, el) {
+	let clip = slider.value * 0.01 * el.offsetWidth;
+	el.style.clip = "rect(0px, " + clip + "px, 100000px, 0px)";
+
+	// slider.style.top = el.offsetHeight / 2 + "px";
+}
+
+document.querySelectorAll('.slider').forEach((slider) => {
+	updateImage(slider, slider.nextElementSibling);
+	slider.onresize
+});
+
+
+// body.addEventListener("resize", (event) => {
+// 	document.querySelectorAll('.slider').forEach((slider) => {
+// 		updateImage(slider, slider.nextElementSibling);
+// 	})
+// });
+
+// const myObserver = new ResizeObserver(entries => {
+// 	// this will get called whenever div dimension changes
+// 	entries.forEach(entry => {
+// 		console.log('width', entry.contentRect.width);
+// 		console.log('height', entry.contentRect.height);
+// 		updateImage(entry, entry.nextElementSibling);
+// 	});
+// });
+
+// document.querySelectorAll('.slider').forEach((slider) => {
+// 	// updateImage(slider, slider.nextElementSibling);
+// 	myObserver.observe(slider);
+// })
+
+// // myObserver.disconnect();
