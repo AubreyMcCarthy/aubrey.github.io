@@ -4,7 +4,7 @@
 
 var isPaused = false;
 let wiggleSpeed = 2;
-let acceleration = 0.001;
+let acceleration = 0.0005;
 let scrollMultiplier = -5;
 
 var darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -50,6 +50,14 @@ window.onload = function () {
 	// sidebarBg.addEventListener('mouseout', function () {
 	// 	setPause(true);
 	// });
+
+	window.addEventListener("focus", (event) => { 
+		setPause(false);
+	});
+
+	window.addEventListener("blur", (event) => {
+		setPause(true);
+	});
 
 	// Vertex shader code
 	var vertexShaderSource = `#version 300 es
