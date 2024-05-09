@@ -2,7 +2,7 @@
 // bear in mind I am a game developer, 
 // not a web developer. Please enjoy your stay
 
-var isPaused = true;
+var isPaused = false;
 let wiggleSpeed = 2;
 let acceleration = 0.001;
 let scrollMultiplier = -5;
@@ -36,20 +36,20 @@ window.onload = function () {
 		previousRenderTime = performance.now();
 	}
 
-	canvas.addEventListener('mouseover', function () {
-		setPause(false);
-	});
-	canvas.addEventListener('mouseout', function () {
-		setPause(true);
-	});
+	// canvas.addEventListener('mouseover', function () {
+	// 	setPause(false);
+	// });
+	// canvas.addEventListener('mouseout', function () {
+	// 	setPause(true);
+	// });
 
 	let sidebarBg = document.getElementById('sidebar-bg');
-	sidebarBg.addEventListener('mouseover', function () {
-		setPause(false);
-	});
-	sidebarBg.addEventListener('mouseout', function () {
-		setPause(true);
-	});
+	// sidebarBg.addEventListener('mouseover', function () {
+	// 	setPause(false);
+	// });
+	// sidebarBg.addEventListener('mouseout', function () {
+	// 	setPause(true);
+	// });
 
 	// Vertex shader code
 	var vertexShaderSource = `#version 300 es
