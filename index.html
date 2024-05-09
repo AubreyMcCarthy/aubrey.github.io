@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<title>Aubrey McCarthy - Technical Artist</title>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+	<div id="bg-container">
+		<div id="sidebar-bg"></div>
+		<canvas id="glCanvas"></canvas>
+	</div>
+
+	<div id="container">
+		<div class="row">
+			<div class="title">
+				<h1>Aubrey McCarthy</h1>
+			</div>
+			<div class="section-content spacer"></div>
+		</div>
+		<!-- <div class="row"> -->
+		<!-- <div class="title"><h2 id='games'>Games</h2></div> -->
+		<!-- <div class="section-content spacer"></div> -->
+		<!-- </div> -->
+
+
+
+		<div class="row">
+			<div class="section-title" id="first-section-title">
+				<h3 id="olliolli-world">OlliOlli World <span class="year"> 2022</span></h3>
+				<p>Technical Artist </p>
+				<h4 id='roll7'>Roll7</h4>
+				<p>2022 - Nintendo Switch, Playstation 4+5, Xbox Series, PC</p>
+			</div>
+			<div class="section-content">
+				<div class="videowrapperpadding">
+					<div class="videowrapper">
+						<iframe class="video-player" src="https://www.youtube-nocookie.com/embed/KEFe58V7FtU"
+							allowfullscreen></iframe>
+					</div>
+				</div>
+
+				<p>OlliOlli World is an exhilarating skating action platformer, set in the vibrant quirky and cozy world
+					of Radlandia.</p>
+				<p>On the project <strong>my main achievement was writing the <em>No Comply Renderer</em></strong>,
+					which is responsible for rendering the game. By harnessing <em>Unity&#39;s Scriptable Render
+						Pipeline</em>. <strong>Which makes the distinctive cartoon art style possible.</strong></p>
+				<p>The <em>No Comply Renderer</em> is the many <strong>shaders used on the characters, environment, and
+						post processes</strong>. As well as the code that glues it all together.</p>
+				<button type="button" class="collapsible">More...</button>
+				<div class="more-content">
+					<p>One of the main stars of the show in <strong>OlliOlli World is the beautiful pastel colour
+							pallet</strong>. The game has many many levels, and we wanted each level to be a
+						continuation of the evolving colour story that&#39;s building through each of biome.</p>
+					<div class='slideOver-Background' id='imageSlide-CB-Tree'>
+						<div class='slideOver-Foreground' id='imageSlide-CB-Forest'>
+						<textarea readonly cols='0' rows='0' class='slider'></textarea>
+						</div>
+					</div>
+					
+					<p>I created a <strong><em>Meta Gradient Texture</em> system and workflow for the artists to
+							use.</strong> Every environment asset is mapped to a shared texture, which is responsible
+						for the colour that you see in the level. </p>
+					<p>This had the dual benefits of allowing the Lead Artist to direct and change the feel of the level
+						as a whole, any time even once the 3D art was finalised and completely non-destructively. As
+						well as meaning an artist creating a level could easily take art from different levels and reuse
+						them. The colours of this asset already matching the rest of the current environment, as soon as
+						you drop it in the level.</p>
+					
+					<div class='slideOver-Background' id='imageSlide-SV-Atlantic'>
+						<div class='slideOver-Foreground' id='imageSlide-SV-Sea'>
+						<textarea readonly cols='0' rows='0' class='slider'></textarea>
+						</div>
+					</div>
+					<p>I also supported the 3D artists which their art creation process, this style of rendering needing
+						the art to be made in a novel way. As well as support going from 3D software to engine, and in
+						engine tools.</p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="section-title">
+				<h3 id='rollerdrome'>Rollerdrome<span class="year"> 2022</span></h3>
+				<p>Technical Artist </p>
+				<h4 id='roll7'>Roll7</h4>
+				<p>Playstation 4+5, Xbox Series, PC</p>
+			</div>
+			<div class="section-content">
+				<div class="videowrapperpadding">
+					<div class="videowrapper">
+						<iframe class="video-player" src="https://www.youtube-nocookie.com/embed/2mns9HMvREA"
+							allowfullscreen></iframe>
+					</div>
+				</div>
+
+				<p>While working on OlliOlli World, Roll7 had another team prototyping Rollerdrome. <strong>I wrote the
+						<em>No Comply Renderer</em> to be flexible and support the art styles of both OlliOlli World and
+						Rollerdrome at the same time.</strong></p>
+				<p>Rollerdrome is a fast and blisteringly fun combat chess game on rollerskates. If Tony Hawk Pro Skater
+					and Doom had a baby, it would probably look like Rollerdrome.</p>
+				<p>Rollerdrome targeting next gen meant there was extra graphics hardware. Which meant getting to write
+					additional rendering features like a decal system. As well as <strong>writing the core shaders for
+						the characters, environments, and post processes.</strong> </p>
+				<button type="button" class="collapsible">More...</button>
+				<div class="more-content">
+					<p>As I was sharing my time between the two projects and they had similar artistic needs many of
+						<strong>the tools and workflows were designed with being project agnostic</strong>. And also was
+						designed with modularity and performance in mind, supporting low end devices like OlliOlli World
+						targeting 60 fps on Nintendo Switch, up to Rollerdrome targeting 4k 120fps on Playstation 5.
+					</p>
+					<p>The <em>Meta Gradient Texture</em> system for example, was in both projects. As was much of the
+						workflow used by artists. This was good because despite having a non-standard art pipeline,
+						artists could be shared between both projects when it was required, with little retraining.</p>
+					<img src="Images/Rollerdrome-Ice.jpg" width="100%">
+					<p>I&#39;m very fond of character lighting in Rollerdrome. Because the visuals are so stylised, and
+						the gameplay fast paced, we decided to divorce the character lighting from the environment. The
+						lighting and shadow drawn by the player are directed by special volumes placed by the
+						environment artists. This keeps the player clear and readable no matter where they are, or how
+						frantic the action.</p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="section-title">
+				<h3 id='john-wick-hex'>John Wick Hex<span class="year"> 2019</span></h3>
+				<p>Environment &amp; Technical Artist</p>
+				<h4 id='bithell-games'>Bithell Games </h4>
+				<p>PC, PS4, Xbox One, Nintendo Switch</p>
+			</div>
+			<div class="section-content">
+				<div class="videowrapperpadding">
+					<div class="videowrapper">
+						<iframe class="video-player" src="https://www.youtube-nocookie.com/embed/Z35Exu4TP28"
+							allowfullscreen></iframe>
+					</div>
+				</div>
+
+				<p>John Wick Hex is a tactics game where you conduct John Wick&#39;s lethal actions, set in an inky noir
+					world.</p>
+				<p>I wrote the shaders which render the characters, environments, post process which gives the game
+					it&#39;s comic book like feel.</p>
+				<p>I was also responsible for <strong>making the majority of the game&#39;s VFX and environment
+						art</strong>. Including a procedural room generator, which allowed for rectangular rooms to be
+					build on a hexagonal grid.</p>
+				<p>And <strong>the <em>Fog of War</em> system</strong>, which means anything not in Wick&#39;s active
+					line of sight recedes into the murky darkness.</p>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="section-title">
+				<h3 id='arcas-path-vr'>Arca&#39;s Path VR<span class="year"> 2018</span></h3>
+				<p>Environment &amp; Technical Artist</p>
+				<h4 id='dream-reality-interactive'>Dream Reality Interactive</h4>
+				<p>Playstation VR, Oculus, PC</p>
+			</div>
+			<div class="section-content">
+				<div class="videowrapperpadding">
+					<div class="videowrapper">
+						<iframe class="video-player" src="https://www.youtube-nocookie.com/embed/aBraNIFVA2g"
+							allowfullscreen></iframe>
+					</div>
+				</div>
+
+				<p>Arca&#39;s path is a serine and colourful VR platform game, which not everything is as peaceful as it
+					seams.</p>
+				<p>I was brought on to <strong>Arca&#39;s Path to optimise the game and make sure it looks it&#39;s
+						best</strong> from our low end platform of Gear VR, up to PSVR and high end PC VR rigs.</p>
+				<p>I stayed on to do additional support for the environment art team. Creating shaders, VFX, and the
+					<strong>novel Level Of Detail system used to support the limited draw distance of the
+						hardware</strong>, while fitting in the artistic tone of the world.</p>
+
+
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="section-title">
+				<h3 id='the-mannequin'>The Mannequin<span class="year"> 2016(Cancelled)</span></h3>
+				<p>Environment &amp; Technical Artist</p>
+				<h4 id='two-tails'>Two Tails</h4>
+			</div>
+			<div class="section-content">
+				<div class="videowrapperpadding">
+					<div class="videowrapper">
+						<iframe class="video-player" src="https://www.youtube-nocookie.com/embed/0pNxlKs_W-8"
+							allowfullscreen></iframe>
+					</div>
+				</div>
+
+				<p>The Mannequin was a first person horror game set against the backdrop of The Windrush Generation and
+					social inequality in London. But was fated to never be released.</p>
+				<p>I was the environment artist responsible for making the London townhouse the game is set in. As well
+					as lighting, and helping develop the painterly style.</p>
+			</div>
+		</div>
+
+		<div class="row"></div>
+	</div>
+
+	<script src="script.js"></script>
+
+</body>
