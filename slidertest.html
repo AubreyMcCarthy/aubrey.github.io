@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Comparison</title>
+<style>
+    .image-comparison-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px; /* adjust as needed */
+    /* margin: 0 auto; */
+    height: 100%;
+}
+
+.image-comparison-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+    position: absolute;
+}
+
+.foregroundImage {
+    clip: rect(0px, 400px, 100000px, 0px);
+}
+
+.image-comparison-container input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  /* Hide default slider */
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
+}
+
+.image-comparison-container input[type=range] {
+    -webkit-appearance: none; /* Hides default slider */
+    appearance: none;
+    background: transparent; /* Otherwise white in Chrome */
+    position: absolute;
+    top: 200px;
+    width: calc(100% + 40px);
+    left: -20px;
+    height: 10px;
+    z-index: 1000; /* make sure it's above the images */
+}
+
+.image-comparison-container input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;/* Hides default slider */
+    appearance: none;
+    width: 40px;
+    height: 120px;
+    border-radius: 5px;
+    background: #cdcdcd;
+    border: 1px solid #cbcbcb;
+    box-shadow: inset 0px 0px 20px -10px rgb(145, 145, 145), inset 0px 5px 15px -5px rgb(255, 255, 255);
+    cursor: pointer;
+    cursor: ew-resize;
+    z-index: 1001; /* make sure it's above the images */
+} 
+
+</style>
+</head>
+<body>
+
+<div class="image-comparison-container">
+    <img src="Images/CloverBrook_Forest.jpg" alt="Image 1">
+    <input type="range" min="0" max="100" value="50" class="slider" oninput="updateImage(this, this.nextElementSibling)">
+    <img src="Images/CloverBrook_Tree.jpg" alt="Image 2" class="foregroundImage">
+</div>
+<script>
+    function updateImage(slider, el) {
+        let clip = slider.value * 0.01 * el.offsetWidth;
+        el.style.clip = "rect(0px, "+clip+"px, 100000px, 0px)";
+
+        // slider.style.top = el.offsetHeight / 2 + "px";
+    }
+
+    document.querySelectorAll('.slider').forEach((slider) => {
+        updateImage(slider, slider.nextElementSibling);
+    });
+
+    let body = document.querySelector('body');
+    body.onresize = (event) => {
+        document.querySelectorAll('.slider').forEach((slider) => {
+            updateImage(slider, slider.nextElementSibling);
+        })  
+    };
+</script>
+</body>
+</html>
