@@ -269,7 +269,6 @@ a {
 .section-title {
 	/* background-color: aquamarine; */
 	flex: 1;
-	max-width: 20rem;
 	padding-bottom: 0px;
 }
 
@@ -284,6 +283,12 @@ a {
 
 .section-content p {
 	padding: 10px 0;
+}
+
+.centered{ 
+	justify-content: center;
+  	align-items: center;
+	/* display: flex; */
 }
 
 @media only screen and (max-width: 768px) {
@@ -480,6 +485,7 @@ a {
 		top: 0;
 		align-self: flex-start;
 		padding-bottom: 100px;
+		max-width: 20rem;
 	}
 }
 
